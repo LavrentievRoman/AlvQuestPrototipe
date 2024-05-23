@@ -17,6 +17,11 @@ public class PlayerNameSetup : MonoBehaviour
         playerNameLabel = gameObject.transform.Find("PlayerNameInputField").gameObject;
         playerLvlLabel = gameObject.transform.Find("PlayerLevelInputField").gameObject;
 
+        SetDefaults();
+    }
+
+    public void SetDefaults()
+    {
         playerNameLabel.GetComponent<TMP_InputField>().text = defaultPlayerName;
         playerLvlLabel.GetComponent<TMP_InputField>().text = defaultPlayerLvl.ToString();
     }

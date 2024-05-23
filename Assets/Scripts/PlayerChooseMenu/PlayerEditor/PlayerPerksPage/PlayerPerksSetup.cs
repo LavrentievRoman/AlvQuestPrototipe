@@ -1,6 +1,7 @@
 using AlvQuest_Editor;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ public class PlayerPerksSetup : MonoBehaviour
     private GameObject perkPanel;
 
     private List<PerkDTO> perks;
+
+    private bool needUpdate;
 
     // Start is called before the first frame update
     void Start()
@@ -27,22 +30,49 @@ public class PlayerPerksSetup : MonoBehaviour
         for (int i = 0; i < 6; i++)
         {
             perks.Add(defaultPerk);
+            perkPanel.transform.GetChild(i).GetComponent<PerkData>().SetPerkData(perks[i]);
         }
 
-        SetDefault();
+        SetDefaults();
+
+        needUpdate = false;
     }
 
-    public void SaveInformation()
+    public void SaveInformation(CharacterDTO character)
     {
-
+        character.Perks = perks;
     }
 
-    public void SetDefault()
+    public void SetDefaults()
     {
+        if (perks == null) return;
+
         for (int i = 0; i < 6; i++)
         {
-            perkPanel.transform.GetChild(i).GetComponent<PerkData>().SetPerkData(defaultPerk);
+            GameObject perkSlot = perkPanel.transform.GetChild(i).gameObject;
+            if (perkSlot.GetComponentInChildren<PerkData>().GetPerkData().BaseData.Name != "Перк не выбран")
+            {
+                PerksDataBase perklist = GameObject.Find("PerkList").GetComponent<PerksDataBase>();
+                GameObject selectedPerk = perklist.FindPerk(perkSlot.transform.Find("Name").GetComponentInChildren<Text>().text);
+                if (selectedPerk != null)
+                {
+                    selectedPerk.GetComponent<PerkData>().SetIsSelect(false);
+                }
+                perklist.UpdateInformation();
+            }
+            perkSlot.GetComponent<PerkData>().SetPerkData(defaultPerk);
         }
+
+        if (currentPerkSelect != null)
+        {
+            GameObject.Find("PerkList").GetComponent<PerksDataBase>().SetActiveContentPanel(false);
+
+            currentPerkSelect.GetComponentInChildren<Outline>().enabled = false;
+
+            currentPerkSelect = null;
+        }
+
+        needUpdate = true;
     }
 
     public void SetCurrentPerk(GameObject current)
@@ -76,5 +106,15 @@ public class PlayerPerksSetup : MonoBehaviour
             [ECharacteristic.Earth] = 0,
         };
 
+    }
+
+    public bool IsNeedUpdate()
+    {
+        return needUpdate;
+    }
+
+    public void SetNeedUpdate(bool need)
+    {
+        needUpdate = need;
     }
 }

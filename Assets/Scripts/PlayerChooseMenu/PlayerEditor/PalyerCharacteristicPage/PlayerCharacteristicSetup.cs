@@ -45,17 +45,9 @@ public class PlayerCharacteristicSetup : MonoBehaviour
         characteristics.Add(ECharacteristic.Dexterity, defaultDexterityValue);
         characteristics.Add(ECharacteristic.Endurance, defaultEnduranceValue);
         characteristics.Add(ECharacteristic.Fire, defaultFireMasteryValue);
-        characteristics.Add(ECharacteristic.Water, defaultEarthMasteryValue);
+        characteristics.Add(ECharacteristic.Water, defaultWaterMasteryValue);
         characteristics.Add(ECharacteristic.Air, defaultAirMasteryValue);
-        characteristics.Add(ECharacteristic.Earth, defaultWaterMasteryValue);
-
-        /*strength = defaultStrengthValue;
-        dexterity = defaultDexterityValue;
-        endurance = defaultEnduranceValue;
-        fireMastery = defaultAirMasteryValue;
-        earthMastery = defaultEarthMasteryValue;
-        airMastery = defaultAirMasteryValue;
-        waterMastery = defaultWaterMasteryValue;*/
+        characteristics.Add(ECharacteristic.Earth, defaultEarthMasteryValue);
 
         SetDefaults();
     }
@@ -97,27 +89,10 @@ public class PlayerCharacteristicSetup : MonoBehaviour
         characteristics[ECharacteristic.Water] = int.Parse(waterMasteryValue.GetComponentInChildren<Text>().text);
         characteristics[ECharacteristic.Air] = int.Parse(airMasteryValue.GetComponentInChildren<Text>().text);
         characteristics[ECharacteristic.Earth] = int.Parse(earthMasteryValue.GetComponentInChildren<Text>().text);
-
-        /*strength = int.Parse(strengthValue.GetComponentInChildren<Text>().text);
-        dexterity = int.Parse(dexterityValue.GetComponentInChildren<Text>().text);
-        endurance = int.Parse(enduranceValue.GetComponentInChildren<Text>().text);
-        fireMastery = int.Parse(fireMasteryValue.GetComponentInChildren<Text>().text);
-        earthMastery = int.Parse(earthMasteryValue.GetComponentInChildren<Text>().text);
-        airMastery = int.Parse(airMasteryValue.GetComponentInChildren<Text>().text);
-        waterMastery = int.Parse(waterMasteryValue.GetComponentInChildren<Text>().text);*/
     }
 
     public void SaveInformation(CharacterDTO character)
     {
-        /*var characteristics = new Dictionary<ECharacteristic, int>();
-        characteristics.Add(ECharacteristic.Strength, strength);
-        characteristics.Add(ECharacteristic.Dexterity, dexterity);
-        characteristics.Add(ECharacteristic.Endurance, endurance);
-        characteristics.Add(ECharacteristic.Fire, fireMastery);
-        characteristics.Add(ECharacteristic.Water, earthMastery);
-        characteristics.Add(ECharacteristic.Air, airMastery);
-        characteristics.Add(ECharacteristic.Earth, waterMastery);*/
-
         character.Characteristics = characteristics;
         character.CharPoints = availableCP;
     }
@@ -128,10 +103,11 @@ public class PlayerCharacteristicSetup : MonoBehaviour
         dexterityValue.GetComponentInChildren<Text>().text = defaultDexterityValue.ToString();
         enduranceValue.GetComponentInChildren<Text>().text = defaultEnduranceValue.ToString();
         fireMasteryValue.GetComponentInChildren<Text>().text = defaultFireMasteryValue.ToString();
-        waterMasteryValue.GetComponentInChildren<Text>().text = defaultEarthMasteryValue.ToString();
+        waterMasteryValue.GetComponentInChildren<Text>().text = defaultWaterMasteryValue.ToString();
         airMasteryValue.GetComponentInChildren<Text>().text = defaultAirMasteryValue.ToString();
-        earthMasteryValue.GetComponentInChildren<Text>().text = defaultWaterMasteryValue.ToString();
+        earthMasteryValue.GetComponentInChildren<Text>().text = defaultEarthMasteryValue.ToString();
 
+        if (characteristics == null) return;
         UpdateInformation();
     }
 }

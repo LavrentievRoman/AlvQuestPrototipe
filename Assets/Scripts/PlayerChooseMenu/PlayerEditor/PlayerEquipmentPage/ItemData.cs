@@ -5,9 +5,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PerkData : MonoBehaviour
+public class ItemData : MonoBehaviour
 {
-    private PerkDTO perkData;
+    private EquipmentDTO equipmentData;
 
     private GameObject descriptionPanel;
     private GameObject requirementsPanel;
@@ -17,22 +17,22 @@ public class PerkData : MonoBehaviour
     public void Start()
     {
         descriptionPanel = GameObject.Find("DescriptionPanel");
-        requirementsPanel = GameObject.Find("PerkRequirementsPanel");
+        requirementsPanel = GameObject.Find("EquipmentRequirementsPanel");
 
         isSelect = false;
     }
 
-    public void SetPerkData(PerkDTO perk)
+    public void SetItemData(EquipmentDTO item)
     {
-        perkData = perk;
+        equipmentData = item;
 
-        gameObject.transform.Find("Name").GetComponentInChildren<Text>().text = perkData.BaseData.Name;
-        gameObject.transform.Find("Perk").GetComponentInChildren<Image>().sprite = perkData.BaseData.Icon;
+        gameObject.transform.Find("Name").GetComponentInChildren<Text>().text = equipmentData.BaseData.Name;
+        gameObject.transform.Find("Item").GetComponentInChildren<Image>().sprite = equipmentData.BaseData.Icon;
     }
 
-    public PerkDTO GetPerkData()
+    public EquipmentDTO GetItemData()
     {
-        return perkData;
+        return equipmentData;
     }
 
     public void SetIsSelect(bool select)
@@ -47,43 +47,43 @@ public class PerkData : MonoBehaviour
 
     public void OnMouseEnter()
     {
-        ShowPerkDescription(true);
-        ShowPerkRequirements(true);
+        ShowItemDescription(true);
+        ShowItemRequirements(true);
     }
 
     public void OnMouseExit()
     {
-        ShowPerkDescription(false);
-        ShowPerkRequirements(false);
+        ShowItemDescription(false);
+        ShowItemRequirements(false);
     }
 
-    private void ShowPerkDescription(bool show)
+    private void ShowItemDescription(bool show)
     {
         if (show)
         {
-            descriptionPanel.transform.Find("PerkName").GetComponent<Text>().text = perkData.BaseData.Name;
-            descriptionPanel.transform.Find("Description").GetComponent<TMP_Text>().text = perkData.BaseData.Name;
+            descriptionPanel.transform.Find("ItemName").GetComponent<Text>().text = equipmentData.BaseData.Name;
+            descriptionPanel.transform.Find("Description").GetComponent<TMP_Text>().text = equipmentData.BaseData.Name;
         }
         else
         {
-            descriptionPanel.transform.Find("PerkName").GetComponent<Text>().text = "";
+            descriptionPanel.transform.Find("ItemName").GetComponent<Text>().text = "";
             descriptionPanel.transform.Find("Description").GetComponent<TMP_Text>().text = "";
         }
     }
 
-    private void ShowPerkRequirements(bool show)
+    private void ShowItemRequirements(bool show)
     {
         if (show)
         {
-            Dictionary<ECharacteristic, int> requirements = perkData.RequirementsForUse;
+            Dictionary<ECharacteristic, int> requirements = equipmentData.RequirementsForUse;
 
             requirementsPanel.transform.Find("StrengthReq").GetComponent<Text>().text = requirements[ECharacteristic.Strength].ToString();
             requirementsPanel.transform.Find("DexterityReq").GetComponent<Text>().text = requirements[ECharacteristic.Dexterity].ToString();
             requirementsPanel.transform.Find("EnduranceReq").GetComponent<Text>().text = requirements[ECharacteristic.Endurance].ToString();
             requirementsPanel.transform.Find("FireMasteryReq").GetComponent<Text>().text = requirements[ECharacteristic.Fire].ToString();
             requirementsPanel.transform.Find("WaterMasteryReq").GetComponent<Text>().text = requirements[ECharacteristic.Water].ToString();
-            requirementsPanel.transform.Find("EarthMasteryReq").GetComponent<Text>().text = requirements[ECharacteristic.Air].ToString();
-            requirementsPanel.transform.Find("AirMasteryReq").GetComponent<Text>().text = requirements[ECharacteristic.Earth].ToString();
+            requirementsPanel.transform.Find("EarthMasteryReq").GetComponent<Text>().text = requirements[ECharacteristic.Earth].ToString();
+            requirementsPanel.transform.Find("AirMasteryReq").GetComponent<Text>().text = requirements[ECharacteristic.Air].ToString();
         }
         else
         {
@@ -95,7 +95,6 @@ public class PerkData : MonoBehaviour
             requirementsPanel.transform.Find("EarthMasteryReq").GetComponent<Text>().text = "";
             requirementsPanel.transform.Find("AirMasteryReq").GetComponent<Text>().text = "";
         }
-        
-    }   
 
+    }
 }

@@ -32,6 +32,12 @@ public class PerksDataBase : MonoBehaviour
                 contentPanel.transform.GetChild(i).Find("Name").GetComponent<Button>().interactable = false;
             }
         }
+        GameObject.Find("PlayerPerksPanel").GetComponent<PlayerPerksSetup>().SetNeedUpdate(false);
+    }
+
+    public void SetActiveContentPanel(bool active)
+    {
+        contentPanel.SetActive(active);
     }
 
     public GameObject FindPerk(string name)
@@ -63,10 +69,6 @@ public class PerksDataBase : MonoBehaviour
 
             newPerk.name = "Perk" + (i + 1).ToString();
             newPerk.GetComponent<PerkData>().SetPerkData(perksDataBase[i]);
-            /*if (!CheckPlayer—haracteristic(perksDataBase[i]))
-            {
-                newPerk.transform.Find("Name").GetComponent<Button>().interactable = false;
-            }*/
 
             RectTransform rt = newPerk.GetComponent<RectTransform>();
             rt.localPosition = new Vector3(0, 0, 0);
