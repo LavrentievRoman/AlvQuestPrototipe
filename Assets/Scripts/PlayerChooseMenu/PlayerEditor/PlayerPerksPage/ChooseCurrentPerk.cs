@@ -7,7 +7,6 @@ public class ChooseCurrentPerk : MonoBehaviour
 {
     private GameObject perkSetupPage;
 
-    // Start is called before the first frame update
     void Start()
     {
         perkSetupPage = GameObject.Find("PlayerPerksPanel");
@@ -19,5 +18,11 @@ public class ChooseCurrentPerk : MonoBehaviour
     public void SetCurrentPerk()
     {
         perkSetupPage.GetComponent<PlayerPerksSetup>().SetCurrentPerk(gameObject.transform.parent.gameObject);
+        GameObject.Find("PerkList").GetComponent<PerksDataBase>().SetActiveContentPanel(true);
+
+        if (perkSetupPage.GetComponent<PlayerPerksSetup>().IsNeedUpdate())
+        {
+            GameObject.Find("PerkList").GetComponent<PerksDataBase>().UpdateInformation();
+        }
     }
 }

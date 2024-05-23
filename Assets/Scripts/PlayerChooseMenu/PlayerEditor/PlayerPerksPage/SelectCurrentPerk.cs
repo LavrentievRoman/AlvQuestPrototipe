@@ -30,7 +30,7 @@ public class SelectCurrentPerk : MonoBehaviour
                 SetPerk(currentPerk);
             }          
             GameObject.Find("PerkList").GetComponent<PerksDataBase>().UpdateInformation();
-        }        
+        }     
     }
 
     private void UnselectPerk(GameObject currentPerk)
