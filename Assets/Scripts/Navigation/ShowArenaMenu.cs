@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class ShowArenaMenu : MonoBehaviour
 {
 
@@ -15,5 +16,6 @@ public class ShowArenaMenu : MonoBehaviour
         button.onClick.AddListener(() => {
             arenaMenu.SetActive(true);
             transform.parent.gameObject.SetActive(false);});
+        
     }
 }
