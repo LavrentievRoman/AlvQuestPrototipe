@@ -40,7 +40,13 @@ public class PlayerPerksSetup : MonoBehaviour
 
     public void SaveInformation(CharacterDTO character)
     {
-        character.Perks = perks;
+        for (int i = 0; i < 6; i++)
+        {
+            GameObject perkSlot = perkPanel.transform.GetChild(i).gameObject;
+            perks[i] = perkSlot.GetComponentInChildren<PerkData>().GetPerkData();
+        }
+
+        character.Perks = new List<PerkDTO>(perks);
     }
 
     public void SetDefaults()

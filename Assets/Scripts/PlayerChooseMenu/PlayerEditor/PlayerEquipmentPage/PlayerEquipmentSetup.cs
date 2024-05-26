@@ -47,7 +47,34 @@ public class PlayerEquipmentSetup : MonoBehaviour
 
     public void SaveInformation(CharacterDTO character)
     {
-        character.Equipment = equipment;
+        for (int i = 0; i < 6; i++)
+        {
+            GameObject itemSlot = equipmentPanel.transform.GetChild(i).gameObject;
+            switch(itemSlot.GetComponentInChildren<ItemData>().GetItemData().BodyPart)
+            {
+                case EBodyPart.Head:
+                    equipment[EBodyPart.Head] = itemSlot.GetComponentInChildren<ItemData>().GetItemData();
+                    break;
+                case EBodyPart.Body:
+                    equipment[EBodyPart.Body] = itemSlot.GetComponentInChildren<ItemData>().GetItemData();
+                    break;
+                case EBodyPart.Hands:
+                    equipment[EBodyPart.Hands] = itemSlot.GetComponentInChildren<ItemData>().GetItemData();
+                    break;
+                case EBodyPart.Feet:
+                    equipment[EBodyPart.Feet] = itemSlot.GetComponentInChildren<ItemData>().GetItemData();
+                    break;
+                case EBodyPart.Weapon:
+                    equipment[EBodyPart.Weapon] = itemSlot.GetComponentInChildren<ItemData>().GetItemData();
+                    break;
+                case EBodyPart.Extra:
+                    equipment[EBodyPart.Extra] = itemSlot.GetComponentInChildren<ItemData>().GetItemData();
+                    break;
+            }
+            
+        }
+
+        character.Equipment = new Dictionary<EBodyPart, EquipmentDTO>(equipment);
     }
 
     public void SetDefaults()
@@ -57,7 +84,7 @@ public class PlayerEquipmentSetup : MonoBehaviour
             return;
         }
 
-            for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++)
         {
             GameObject itemSlot = equipmentPanel.transform.GetChild(i).gameObject;
             if (itemSlot.GetComponentInChildren<ItemData>().GetItemData().BaseData.Name != "Предмет не выбран")

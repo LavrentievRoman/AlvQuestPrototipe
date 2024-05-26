@@ -20,6 +20,5 @@ public class SaveButtonClicked : MonoBehaviour
     {
         playerEditor.GetComponent<PlayerEditor>().SaveInformation();
         playerEditor.GetComponent<PlayerEditor>().SavePlayer();
-        playerEditor.GetComponent<PlayerEditor>().CloseEditor();
     }
 }

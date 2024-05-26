@@ -1,30 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterDataBase : MonoBehaviour
 {
     public GameObject characterEntity;
     public GameObject contentPanel;
 
+    private GameObject currentCharacter;
+
     private List<CharacterDTO> characterDataBase;
 
     void Start()
-    {
-        characterDataBase = new List<CharacterDTO>();
-
+    {     
         FillDataBase();
 
         AddGraphics();
     }
 
+    public void SetCurrentCharacter(GameObject character)
+    {
+        if (currentCharacter != null)
+        {
+            currentCharacter.GetComponentInChildren<Outline>().enabled = false;
+        }
+
+        currentCharacter = character;
+        currentCharacter.GetComponentInChildren<Outline>().enabled = true;
+
+        GameObject.Find("PlayerCard").GetComponent<ShowPlayerCard>().ShowCharacter(characterDataBase[int.Parse(currentCharacter.name)-1]);
+    }
+
     public void AddNewCharacter(CharacterDTO newCharacter)
-    {    
+    {
         characterDataBase.Add(newCharacter);
 
         GameObject character = Instantiate(characterEntity, contentPanel.transform) as GameObject;
 
-        character.name = "Character" + (characterDataBase.Count + 1).ToString();
+        character.name = (characterDataBase.Count).ToString();
         character.GetComponent<CharacterData>().SetCharacterData(newCharacter);
 
         RectTransform rt = character.GetComponent<RectTransform>();
@@ -51,6 +65,6 @@ public class CharacterDataBase : MonoBehaviour
 
     private void FillDataBase()
     {
-
+        characterDataBase = new List<CharacterDTO>();
     }
 }

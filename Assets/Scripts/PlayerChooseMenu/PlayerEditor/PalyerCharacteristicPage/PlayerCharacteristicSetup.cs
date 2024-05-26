@@ -2,6 +2,7 @@ using AlvQuest_Editor;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,16 +29,8 @@ public class PlayerCharacteristicSetup : MonoBehaviour
 
     private Dictionary<ECharacteristic, int> characteristics;
 
-    /*private int strength;
-    private int dexterity;
-    private int endurance;
-    private int fireMastery;
-    private int earthMastery;
-    private int airMastery;
-    private int waterMastery;*/
-
     // Start is called before the first frame update
-    public void Start()
+    public void Awake()
     {
         characteristics = new Dictionary<ECharacteristic, int>();
 
@@ -93,7 +86,7 @@ public class PlayerCharacteristicSetup : MonoBehaviour
 
     public void SaveInformation(CharacterDTO character)
     {
-        character.Characteristics = characteristics;
+        character.Characteristics = new Dictionary<ECharacteristic, int>(characteristics);
         character.CharPoints = availableCP;
     }
 

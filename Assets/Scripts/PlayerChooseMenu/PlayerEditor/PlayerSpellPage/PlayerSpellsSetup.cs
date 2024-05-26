@@ -39,7 +39,13 @@ public class PlayerSpellsSetup : MonoBehaviour
 
     public void SaveInformation(CharacterDTO character)
     {
-        character.Spells = spells;
+        for (int i = 0; i < 9; i++)
+        {
+            GameObject spellSlot = spellPanel.transform.GetChild(i).gameObject;
+            spells[i] = spellSlot.GetComponentInChildren<SpellData>().GetSpellData();
+        }
+
+        character.Spells = new List<SpellDTO>(spells);
     }
 
     public void SetDefaults()

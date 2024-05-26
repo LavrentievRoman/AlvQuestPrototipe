@@ -8,9 +8,13 @@ public class CharacterData : MonoBehaviour
 {
     private CharacterDTO character;
 
-    void Start()
+    private void OnMouseDown()
     {
-        character = new CharacterDTO();
+        GameObject.Find("CharacterList").GetComponent<CharacterDataBase>().SetCurrentCharacter(gameObject);
+
+        //Debug.Log(character.Characteristics[ECharacteristic.Strength]);
+
+        //GameObject.Find("PlayerCard").GetComponent<ShowPlayerCard>().ShowCharacter(character);
     }
 
     public CharacterDTO GetCharacterData()
@@ -20,7 +24,7 @@ public class CharacterData : MonoBehaviour
 
     public void SetCharacterData(CharacterDTO data)
     {
-        character = data;
+        character = data;      
 
         GameObject namePanel = gameObject.transform.Find("NamePanel").gameObject;
 
@@ -31,9 +35,8 @@ public class CharacterData : MonoBehaviour
         GameObject lvlPanel = gameObject.transform.Find("LevelPanel").gameObject;
 
         lvlPanel.transform.Find("Lvl").GetComponentInChildren<Text>().text = character.Level.ToString();
-
-        SetCharacteristics(character.Characteristics);
-
+      
+        SetCharacteristics(character.Characteristics);       
     }
 
     private void SetCharacteristics(Dictionary<ECharacteristic, int> characteristics)

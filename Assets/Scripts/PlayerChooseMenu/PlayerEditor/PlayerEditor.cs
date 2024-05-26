@@ -51,8 +51,10 @@ public class PlayerEditor : MonoBehaviour
     }
 
     public void SavePlayer()
-    {
+    {     
         GameObject.Find("CharacterList").GetComponent<CharacterDataBase>().AddNewCharacter(character);
+
+        CloseEditor();
     }
 
     public void SaveInformation()
