@@ -15,7 +15,9 @@ public class ShowArenaMenu : MonoBehaviour
         Button button = GetComponent<Button>();
         button.onClick.AddListener(() => {
             arenaMenu.SetActive(true);
+            arenaMenu.GetComponent<Arena>().UpdatePlayerCard();
             transform.parent.gameObject.SetActive(false);});
         
     }
+
 }

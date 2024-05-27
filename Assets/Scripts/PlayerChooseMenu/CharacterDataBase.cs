@@ -5,10 +5,14 @@ using UnityEngine.UI;
 
 public class CharacterDataBase : MonoBehaviour
 {
+    public static CharacterDataBase Instance { get; private set; }
+
     public GameObject characterEntity;
     public GameObject contentPanel;
 
     private GameObject currentCharacter;
+
+    public CharacterDTO SelectedCharacter { get; private set; }
 
     private List<CharacterDTO> characterDataBase;
 
@@ -17,6 +21,8 @@ public class CharacterDataBase : MonoBehaviour
         FillDataBase();
 
         AddGraphics();
+
+        Instance = this;
     }
 
     public void SetCurrentCharacter(GameObject character)
@@ -28,6 +34,8 @@ public class CharacterDataBase : MonoBehaviour
 
         currentCharacter = character;
         currentCharacter.GetComponentInChildren<Outline>().enabled = true;
+
+        SelectedCharacter = characterDataBase[int.Parse(currentCharacter.name) - 1];
 
         GameObject.Find("PlayerCard").GetComponent<ShowPlayerCard>().ShowCharacter(characterDataBase[int.Parse(currentCharacter.name)-1]);
     }
