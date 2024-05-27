@@ -5,13 +5,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerEquipmentSetup : MonoBehaviour
-{
-    public EquipmentDTO defaultEquipment;
+{  
     public Sprite defaultIcon;
 
     private GameObject currentImemSlot;
     private GameObject equipmentPanel;
 
+    private Dictionary<EBodyPart, EquipmentDTO> defaultEquipment;
     private Dictionary<EBodyPart, EquipmentDTO> equipment;
 
     private bool needUpdate;
@@ -23,21 +23,19 @@ public class PlayerEquipmentSetup : MonoBehaviour
 
         defaultEquipment = MakeDefaultEquipment();
 
-        equipment = new Dictionary<EBodyPart, EquipmentDTO>();
-
-        equipment = new Dictionary<EBodyPart, EquipmentDTO>
-        {
-            [EBodyPart.Head] = defaultEquipment,
-            [EBodyPart.Body] = defaultEquipment,
-            [EBodyPart.Hands] = defaultEquipment,
-            [EBodyPart.Feet] = defaultEquipment,
-            [EBodyPart.Weapon] = defaultEquipment,
-            [EBodyPart.Extra] = defaultEquipment
-        };
+        equipment = new Dictionary<EBodyPart, EquipmentDTO>(defaultEquipment);
 
         for (int i = 0; i < 6; i++)
-        {
-            equipmentPanel.transform.GetChild(i).GetComponent<ItemData>().SetItemData(defaultEquipment);
+        {          
+            switch (i)
+            {
+                case 0: equipmentPanel.transform.GetChild(i).GetComponent<ItemData>().SetItemData(defaultEquipment[EBodyPart.Head]); break;
+                case 1: equipmentPanel.transform.GetChild(i).GetComponent<ItemData>().SetItemData(defaultEquipment[EBodyPart.Body]); break;
+                case 2: equipmentPanel.transform.GetChild(i).GetComponent<ItemData>().SetItemData(defaultEquipment[EBodyPart.Hands]); break;
+                case 3: equipmentPanel.transform.GetChild(i).GetComponent<ItemData>().SetItemData(defaultEquipment[EBodyPart.Feet]); break;
+                case 4: equipmentPanel.transform.GetChild(i).GetComponent<ItemData>().SetItemData(defaultEquipment[EBodyPart.Weapon]); break;
+                case 5: equipmentPanel.transform.GetChild(i).GetComponent<ItemData>().SetItemData(defaultEquipment[EBodyPart.Extra]); break;
+            }
         }
 
         SetDefaults();
@@ -53,6 +51,7 @@ public class PlayerEquipmentSetup : MonoBehaviour
             switch(itemSlot.GetComponentInChildren<ItemData>().GetItemData().BodyPart)
             {
                 case EBodyPart.Head:
+                    Debug.Log(itemSlot.GetComponentInChildren<ItemData>().GetItemData().BaseData.Name);
                     equipment[EBodyPart.Head] = itemSlot.GetComponentInChildren<ItemData>().GetItemData();
                     break;
                 case EBodyPart.Body:
@@ -72,7 +71,7 @@ public class PlayerEquipmentSetup : MonoBehaviour
                     break;
             }
             
-        }
+        }   
 
         character.Equipment = new Dictionary<EBodyPart, EquipmentDTO>(equipment);
     }
@@ -97,7 +96,16 @@ public class PlayerEquipmentSetup : MonoBehaviour
                 }
                 equipmentList.UpdateInformation();
             }
-            itemSlot.GetComponent<ItemData>().SetItemData(defaultEquipment);
+
+            switch (i)
+            {
+                case 0: itemSlot.GetComponent<ItemData>().SetItemData(defaultEquipment[EBodyPart.Head]); break;
+                case 1: itemSlot.GetComponent<ItemData>().SetItemData(defaultEquipment[EBodyPart.Body]); break;
+                case 2: itemSlot.GetComponent<ItemData>().SetItemData(defaultEquipment[EBodyPart.Hands]); break;
+                case 3: itemSlot.GetComponent<ItemData>().SetItemData(defaultEquipment[EBodyPart.Feet]); break;
+                case 4: itemSlot.GetComponent<ItemData>().SetItemData(defaultEquipment[EBodyPart.Weapon]); break;
+                case 5: itemSlot.GetComponent<ItemData>().SetItemData(defaultEquipment[EBodyPart.Extra]); break;
+            }
         }
 
         if (currentImemSlot != null)
@@ -125,27 +133,7 @@ public class PlayerEquipmentSetup : MonoBehaviour
     public GameObject GetCurrentItem()
     {
         return currentImemSlot;
-    }
-
-    private EquipmentDTO MakeDefaultEquipment()
-    {
-        EquipmentDTO defaultItem = new EquipmentDTO();
-        defaultItem.BaseData.Name = "Предмет не выбран";
-        defaultItem.BaseData.Description = "";
-        defaultItem.BaseData.Icon = defaultIcon;
-        defaultItem.RequirementsForUse = new Dictionary<ECharacteristic, int>()
-        {
-            [ECharacteristic.Strength] = 0,
-            [ECharacteristic.Dexterity] = 0,
-            [ECharacteristic.Endurance] = 0,
-            [ECharacteristic.Fire] = 0,
-            [ECharacteristic.Water] = 0,
-            [ECharacteristic.Air] = 0,
-            [ECharacteristic.Earth] = 0,
-        };
-
-        return defaultItem;
-    }
+    }  
 
     public bool IsNeedUpdate()
     {
@@ -155,5 +143,39 @@ public class PlayerEquipmentSetup : MonoBehaviour
     public void SetNeedUpdate(bool need)
     {
         needUpdate = need;
+    }
+
+    private Dictionary<EBodyPart, EquipmentDTO> MakeDefaultEquipment()
+    {
+        Dictionary<EBodyPart, EquipmentDTO> defaultEq = new Dictionary<EBodyPart, EquipmentDTO>();
+
+        for (int i = 0; i < 6; i++)
+        {
+            EquipmentDTO defaultItem = new EquipmentDTO();
+            defaultItem.BaseData.Name = "Предмет не выбран";
+            defaultItem.BaseData.Description = "";
+            defaultItem.BaseData.Icon = defaultIcon;
+            defaultItem.RequirementsForUse = new Dictionary<ECharacteristic, int>()
+            {
+                [ECharacteristic.Strength] = 0,
+                [ECharacteristic.Dexterity] = 0,
+                [ECharacteristic.Endurance] = 0,
+                [ECharacteristic.Fire] = 0,
+                [ECharacteristic.Water] = 0,
+                [ECharacteristic.Air] = 0,
+                [ECharacteristic.Earth] = 0,
+            };
+
+            switch (i)
+            {
+                case 0: defaultItem.BodyPart = EBodyPart.Head; defaultEq[EBodyPart.Head] = defaultItem; break;
+                case 1: defaultItem.BodyPart = EBodyPart.Body; defaultEq[EBodyPart.Body] = defaultItem; break;
+                case 2: defaultItem.BodyPart = EBodyPart.Hands; defaultEq[EBodyPart.Hands] = defaultItem; break;
+                case 3: defaultItem.BodyPart = EBodyPart.Feet; defaultEq[EBodyPart.Feet] = defaultItem; break;
+                case 4: defaultItem.BodyPart = EBodyPart.Weapon; defaultEq[EBodyPart.Weapon] = defaultItem; break;
+                case 5: defaultItem.BodyPart = EBodyPart.Extra; defaultEq[EBodyPart.Extra] = defaultItem; break;
+            }
+        }
+        return defaultEq;
     }
 }

@@ -11,10 +11,6 @@ public class CharacterData : MonoBehaviour
     private void OnMouseDown()
     {
         GameObject.Find("CharacterList").GetComponent<CharacterDataBase>().SetCurrentCharacter(gameObject);
-
-        //Debug.Log(character.Characteristics[ECharacteristic.Strength]);
-
-        //GameObject.Find("PlayerCard").GetComponent<ShowPlayerCard>().ShowCharacter(character);
     }
 
     public CharacterDTO GetCharacterData()
