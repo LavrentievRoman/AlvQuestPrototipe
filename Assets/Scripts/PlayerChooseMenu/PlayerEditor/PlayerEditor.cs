@@ -2,6 +2,7 @@ using AlvQuest_Editor;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class PlayerEditor : MonoBehaviour
 {
@@ -51,7 +52,7 @@ public class PlayerEditor : MonoBehaviour
     }
 
     public void SavePlayer()
-    {     
+    {      
         GameObject.Find("CharacterList").GetComponent<CharacterDataBase>().AddNewCharacter(character);
 
         CloseEditor();
