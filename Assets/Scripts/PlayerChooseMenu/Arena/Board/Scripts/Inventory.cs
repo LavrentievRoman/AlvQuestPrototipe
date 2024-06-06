@@ -9,10 +9,10 @@ public class Inventory : MonoBehaviour
     public static InventoryItem carriedItem;
 
     [SerializeField] InventorySlot[] inventorySlots;
-    [SerializeField] InventorySlot[] hotbarSlots;
+    //[SerializeField] InventorySlot[] hotbarSlots;
 
     // 0=Head, 1=Chest, 2=Legs, 3=Feet
-    [SerializeField] InventorySlot[] equipmentSlots;
+    //[SerializeField] InventorySlot[] equipmentSlots;
 
     [SerializeField] Transform draggablesTransform;
     [SerializeField] InventoryItem itemPrefab;
@@ -33,26 +33,27 @@ public class Inventory : MonoBehaviour
     {
         if(carriedItem == null) return;
 
-        carriedItem.transform.position = Input.mousePosition;
+        carriedItem.transform.localPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+
     }
 
     public void SetCarriedItem(InventoryItem item)
     {
         if(carriedItem != null)
         {
-            if(item.activeSlot.myTag != SlotTag.None && item.activeSlot.myTag != carriedItem.myItem.itemTag) return;
+            //if(item.activeSlot.myTag != SlotTag.None && item.activeSlot.myTag != carriedItem.myItem.itemTag) return;
             item.activeSlot.SetItem(carriedItem);
         }
 
-        if(item.activeSlot.myTag != SlotTag.None)
-        { EquipEquipment(item.activeSlot.myTag, null); }
+        /*if(item.activeSlot.myTag != SlotTag.None)
+        { EquipEquipment(item.activeSlot.myTag, null); }*/
 
         carriedItem = item;
         carriedItem.canvasGroup.blocksRaycasts = false;
         item.transform.SetParent(draggablesTransform);
     }
 
-    public void EquipEquipment(SlotTag tag, InventoryItem item = null)
+    /*public void EquipEquipment(SlotTag tag, InventoryItem item = null)
     {
         switch (tag)
         {
@@ -75,7 +76,7 @@ public class Inventory : MonoBehaviour
             case SlotTag.Feet:
                 break;
         }
-    }
+    }*/
 
     public void SpawnInventoryItem(Item item = null)
     {
@@ -88,7 +89,9 @@ public class Inventory : MonoBehaviour
             // Check if the slot is empty
             if(inventorySlots[i].myItem == null)
             {
-                Instantiate(itemPrefab, inventorySlots[i].transform).Initialize(_item, inventorySlots[i]);
+                InventoryItem inventoryItem = Instantiate(itemPrefab, inventorySlots[i].transform);
+                inventoryItem.transform.localPosition = Vector3.zero;
+                inventoryItem.Initialize(_item, inventorySlots[i]);
                 break;
             }
         }
