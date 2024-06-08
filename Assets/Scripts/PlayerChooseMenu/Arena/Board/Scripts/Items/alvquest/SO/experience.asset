@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: experience
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: a342535aaf998ff4083591afe9aae8b9, type: 3}
-  itemTag: 0
-  equipmentPrefab: {fileID: 0}
+  stoneType: 3

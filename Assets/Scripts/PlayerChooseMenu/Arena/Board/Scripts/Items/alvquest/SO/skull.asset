@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: skull
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 713893783b8ece342a94980bd2da1edb, type: 3}
-  itemTag: 0
-  equipmentPrefab: {fileID: 0}
+  stoneType: 1

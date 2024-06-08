@@ -26,10 +26,19 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         Inventory.carriedItem = null;
 
         // Reset old slot
-        item.activeSlot.myItem = null;
+        InventorySlot itemSlot = item.activeSlot;
+
+        Item myItem1 = myItem.myItem;
+
+        Vector2 myPosition = myItem.Position;
+
+        Inventory.Singleton.CreateItem(myItem1, itemSlot, item.Position);
+
+        Destroy(myItem.gameObject);
 
         // Set current slot
         myItem = item;
+        myItem.Position = myPosition;
         myItem.activeSlot = this;
         myItem.transform.SetParent(transform);
         myItem.transform.localPosition = Vector3.zero;
@@ -37,5 +46,10 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
 
         /*if(myTag != SlotTag.None)
         { Inventory.Singleton.EquipEquipment(myTag, myItem); }*/
+    }
+
+    public void RemoveItem()
+    {
+        myItem = null;
     }
 }
