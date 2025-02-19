@@ -1,28 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PlusButtonClicked : MonoBehaviour
 {
     private GameObject characteristic;
 
-    private GameObject panel;
+    private PlayerCharacteristicSetup characteristicSetup;
 
     public void Start()
     {
-        characteristic = transform.parent.gameObject.transform.Find("CharacteristicValue").gameObject;
+        characteristic = transform.parent.Find("CharacteristicValue").gameObject;
+        characteristicSetup = GetComponentInParent<PlayerCharacteristicSetup>();
 
-        panel = GameObject.Find("PlayerMainСharacteristicPanel");
-
+        // Добавляем событее при нажатии на кнопку
         Button button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(delegate { IncreaseCharacteristicValue(); });
     }
 
     public void Update()
     {
-        if (int.Parse(characteristic.GetComponentInChildren<Text>().text) == 99 || panel.GetComponentInChildren<PlayerCharacteristicSetup>().GetCharacteristicPointValue() == 0)
+        // Изменяем интерактивность кнопки, если значение навыка или оставшихся очков достигли предела
+        if (int.Parse(characteristic.GetComponentInChildren<Text>().text) == 99 || characteristicSetup.AvailableCP == 0)
         {
             gameObject.GetComponent<Button>().interactable = false;
         }
@@ -32,11 +30,13 @@ public class PlusButtonClicked : MonoBehaviour
         }
     }
 
+    // Изменение значения наввыка
     public void IncreaseCharacteristicValue()
     {
-        int newValue = int.Parse(characteristic.GetComponentInChildren<Text>().text) + 1;
-        characteristic.GetComponentInChildren<Text>().text = newValue.ToString();
+        // Прибавляем 1 к значению навыка
+        characteristic.GetComponentInChildren<Text>().text = (int.Parse(characteristic.GetComponentInChildren<Text>().text) + 1).ToString();
 
-        panel.GetComponentInChildren<PlayerCharacteristicSetup>().ReduceCharacteristicPoint();
+        // Уменьшаем значение оставшихся очков на 1
+        characteristicSetup.AvailableCP--;
     }
 }

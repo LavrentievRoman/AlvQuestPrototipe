@@ -1,47 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class PlayerNameSetup : MonoBehaviour
+public class PlayerNameSetup : MonoBehaviour, IPlayerSetup
 {    
-    public string defaultPlayerName;
-    public int defaultPlayerLvl;
+    [SerializeField] private string defaultPlayerName;
+    [SerializeField] private int defaultPlayerLvl;
 
-    private GameObject playerNameLabel;
-    private GameObject playerLvlLabel;
+    [SerializeField] private GameObject playerNameInputField;
+    [SerializeField] private GameObject playerLvlInputField;
 
     public void Start()
     {
-        playerNameLabel = gameObject.transform.Find("PlayerNameInputField").gameObject;
-        playerLvlLabel = gameObject.transform.Find("PlayerLevelInputField").gameObject;
-
         SetDefaults();
     }
 
+    // Установка значений по умолчанию
     public void SetDefaults()
     {
-        playerNameLabel.GetComponent<TMP_InputField>().text = defaultPlayerName;
-        playerLvlLabel.GetComponent<TMP_InputField>().text = defaultPlayerLvl.ToString();
+        playerNameInputField.GetComponent<TMP_InputField>().text = defaultPlayerName;
+        playerLvlInputField.GetComponent<TMP_InputField>().text = defaultPlayerLvl.ToString();
     }
 
+    // Сохранение параметров
     public void SaveInformation(CharacterDTO character)
     {
-        int lvl = int.Parse(playerLvlLabel.GetComponent<TMP_InputField>().text);
-        if (lvl <= 0)
+        // Сохраняем лвл персонажа
+        character.Level = int.Parse(playerLvlInputField.GetComponent<TMP_InputField>().text);
+        // Если лвл 0 или меньше приводим его к значению по умолчанию
+        if (character.Level <= 0)
         {
-            lvl = defaultPlayerLvl;
-            playerLvlLabel.GetComponent<TMP_InputField>().text = defaultPlayerLvl.ToString();
-        }  
-        
-        string name = playerNameLabel.GetComponent<TMP_InputField>().text;
+            character.Level = defaultPlayerLvl;
+            playerLvlInputField.GetComponent<TMP_InputField>().text = defaultPlayerLvl.ToString();
+        }
 
-        int charPoints = int.Parse(playerLvlLabel.GetComponent<TMP_InputField>().text) * 4;
+        character.CharPoints = character.Level * 4;
 
-        character.Level = lvl;
-        character.BaseData.Name = name;
-
-        gameObject.transform.parent.Find("PlayerMainСharacteristicPanel").GetComponentInChildren<PlayerCharacteristicSetup>().SetCharacteristicPointValue(charPoints);
+        // Сохраняем имя пероснажа
+        character.BaseData.Name = playerNameInputField.GetComponent<TMP_InputField>().text;    
     }
 }

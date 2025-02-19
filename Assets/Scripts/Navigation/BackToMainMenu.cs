@@ -1,25 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class BackToMainMenu : MonoBehaviour
 {
-    public GameObject mainMenu;
-    private GameObject currentMenu;
+    [SerializeField]
+    private GameObject mainMenu;
 
     public void Start()
     {
-        currentMenu = transform.parent.gameObject;
-
         Button button = gameObject.GetComponent<Button>();
+
+        // Привязываем событее к кнопке
         button.onClick.AddListener(delegate { ShowMenu(); });
     }
 
-    public void ShowMenu()
+    // Показ меню
+    private void ShowMenu()
     {
+        // Делаем основное меню активным
         mainMenu.SetActive(true);
-        currentMenu.SetActive(false);
+
+        // Скрываем текущее меню
+        transform.parent.gameObject.SetActive(false);
     }
 }

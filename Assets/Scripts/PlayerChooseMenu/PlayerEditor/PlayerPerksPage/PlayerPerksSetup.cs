@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerPerksSetup : MonoBehaviour
+public class PlayerPerksSetup : MonoBehaviour, IPlayerSetup
 {
     public PerkDTO defaultPerk;
     public Sprite defaultIcon;

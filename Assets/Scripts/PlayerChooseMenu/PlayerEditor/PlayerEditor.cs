@@ -1,114 +1,77 @@
-using AlvQuest_Editor;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class PlayerEditor : MonoBehaviour
 {
-    private CharacterDTO character;
-
-    private GameObject playerNamePanel;
-    private GameObject playerMainСharacteristicPanel;
-    private GameObject playerPerksPanel;
-    private GameObject playerEquipmentPanel;
-    private GameObject playerSpellPanel;
+    public CharacterDTO CustomPlayer { get; set; }
 
     public void Start()
     {
-        playerNamePanel = gameObject.transform.Find("PlayerNamePanel").gameObject;
-        playerMainСharacteristicPanel = gameObject.transform.Find("PlayerMainСharacteristicPanel").gameObject;
-        playerPerksPanel = gameObject.transform.Find("PlayerPerksPanel").gameObject;
-        playerEquipmentPanel = gameObject.transform.Find("PlayerEquipmentPanel").gameObject;
-        playerSpellPanel = gameObject.transform.Find("PlayerSpellPanel").gameObject;
-
-        character = new CharacterDTO();
+        CustomPlayer = new CharacterDTO();
     }
 
+    // Закрытее редактора персонажа
     public void CloseEditor()
     {
-        playerMainСharacteristicPanel.SetActive(true);
-        playerMainСharacteristicPanel.GetComponentInChildren<PlayerCharacteristicSetup>().SetDefaults();
-        playerMainСharacteristicPanel.SetActive(false);
+        // Устанавливаем значения редактора персонажа на значения по умолчанию
+        for (int i = 0; i < gameObject.transform.childCount; i++)
+        {
+            gameObject.transform.GetChild(i).gameObject.SetActive(true);
+            SetPanelDefault<IPlayerSetup>(gameObject.transform.GetChild(i).gameObject);
+            gameObject.transform.GetChild(i).gameObject.SetActive(false);
+        }
+        // Показываем первую панель
+        gameObject.transform.GetChild(0).gameObject.SetActive(true);
 
-        playerPerksPanel.SetActive(true);
-        playerPerksPanel.GetComponentInChildren<PlayerPerksSetup>().SetDefaults();
-        playerPerksPanel.SetActive(false);
+        // Создаём "пустого" персонажа
+        CustomPlayer = new CharacterDTO();
 
-        playerEquipmentPanel.SetActive(true);
-        playerEquipmentPanel.GetComponentInChildren<PlayerEquipmentSetup>().SetDefaults();
-        playerEquipmentPanel.SetActive(false);
-
-        playerSpellPanel.SetActive(true);
-        playerSpellPanel.GetComponentInChildren<PlayerSpellsSetup>().SetDefaults();
-        playerSpellPanel.SetActive(false);
-
-        playerNamePanel.SetActive(true);
-        playerNamePanel.GetComponentInChildren<PlayerNameSetup>().SetDefaults();
-
-        character = new CharacterDTO();
-
+        // Скрываем редактор персонажа
         gameObject.SetActive(false);
     }
 
+    // Сохранение созданного пероснажа
     public void SavePlayer()
-    {      
-        GameObject.Find("CharacterList").GetComponent<CharacterDataBase>().AddNewCharacter(character);
+    {
+        // Добавляем созданного персонажа в список доступных
+        GameObjectManager.Instance.Objects["CharacterList"].GetComponent<CharacterDataBase>().AddNewCharacter(CustomPlayer);
 
+        // Закрываем редактор
         CloseEditor();
     }
 
+    // Сохранение информации с панели
     public void SaveInformation()
     {
-        if(playerNamePanel.activeInHierarchy)
+        for (int i = 0; i < gameObject.transform.childCount; i++)
         {
-            playerNamePanel.GetComponentInChildren<PlayerNameSetup>().SaveInformation(character);
-        }         
-        if(playerMainСharacteristicPanel.activeInHierarchy)
-        {
-            playerMainСharacteristicPanel.GetComponentInChildren<PlayerCharacteristicSetup>().SaveInformation(character);
-        }
-        if (playerPerksPanel.activeInHierarchy)
-        {
-            playerPerksPanel.GetComponentInChildren<PlayerPerksSetup>().SaveInformation(character);
-        }
-        if (playerEquipmentPanel.activeInHierarchy)
-        {
-            playerEquipmentPanel.GetComponentInChildren<PlayerEquipmentSetup>().SaveInformation(character);
-        }
-        if (playerSpellPanel.activeInHierarchy)
-        {
-            playerSpellPanel.GetComponentInChildren<PlayerSpellsSetup>().SaveInformation(character);
+            SavePanelInformation<IPlayerSetup>(gameObject.transform.GetChild(i).gameObject);
         }
     }
 
+    // Сброс информации с панели 
     public void SetDefault()
     {
-        if (playerMainСharacteristicPanel.activeInHierarchy)
+        for (int i = 0; i < gameObject.transform.childCount; i++)
         {
-            playerMainСharacteristicPanel.GetComponentInChildren<PlayerCharacteristicSetup>().SetDefaults();
-        }
-        if (playerPerksPanel.activeInHierarchy)
-        {
-            playerPerksPanel.GetComponentInChildren<PlayerPerksSetup>().SetDefaults();
-        }
-        if (playerEquipmentPanel.activeInHierarchy)
-        {
-            playerEquipmentPanel.GetComponentInChildren<PlayerEquipmentSetup>().SetDefaults();
-        }
-        if (playerSpellPanel.activeInHierarchy)
-        {
-            playerSpellPanel.GetComponentInChildren<PlayerSpellsSetup>().SetDefaults();
+            SetPanelDefault<IPlayerSetup>(gameObject.transform.GetChild(i).gameObject);
         }
     }
 
-    public int GetPlayerCharPoints()
+    // Вызов необходимого метода сохранения информации
+    private void SavePanelInformation<T>(GameObject panel) where T : IPlayerSetup
     {
-        return character.CharPoints;
+        if (panel.activeInHierarchy)
+        {
+            panel.GetComponentInChildren<T>()?.SaveInformation(CustomPlayer);
+        }
     }
 
-    public Dictionary<ECharacteristic, int> GetPlayerCharacteristics()
+    // Вызов необходимого метола сброса параметров панели
+    private void SetPanelDefault<T>(GameObject panel) where T : IPlayerSetup
     {
-        return character.Characteristics;
+        if (panel.activeInHierarchy)
+        {
+            panel.GetComponentInChildren<T>()?.SetDefaults();
+        }
     }
 }

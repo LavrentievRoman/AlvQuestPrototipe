@@ -86,7 +86,7 @@ public class EquipmentDataBase : MonoBehaviour
 
     private bool CheckPlayer—haracteristic(EquipmentDTO item)
     {
-        Dictionary<ECharacteristic, int> characteristic = GameObject.Find("PlayerEditor").GetComponent<PlayerEditor>().GetPlayerCharacteristics();
+        Dictionary<ECharacteristic, int> characteristic = GameObject.Find("PlayerEditor").GetComponent<PlayerEditor>().CustomPlayer.Characteristics;
 
         if (item.RequirementsForUse[ECharacteristic.Strength] > characteristic[ECharacteristic.Strength])
         {

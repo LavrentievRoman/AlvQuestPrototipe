@@ -2517,6 +2517,7 @@ GameObject:
   - component: {fileID: 1640261606220262931}
   - component: {fileID: 7530675232075190421}
   - component: {fileID: 7164064772506856572}
+  - component: {fileID: 7295281499379929522}
   m_Layer: 5
   m_Name: PerksPanel
   m_TagString: Untagged
@@ -2608,6 +2609,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0.5764706, g: 0.57254905, b: 0.57254905, a: 1}
   m_EffectDistance: {x: 1, y: 1}
   m_UseGraphicAlpha: 1
+--- !u!114 &7295281499379929522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673916734805561823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71536ba1624fc254a81b3c5c88c86308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1734905979156118494
 GameObject:
   m_ObjectHideFlags: 0
@@ -4412,6 +4425,7 @@ GameObject:
   - component: {fileID: 4235588864350694579}
   - component: {fileID: 2186698757695432580}
   - component: {fileID: 4564353827348166770}
+  - component: {fileID: 2035411480813719815}
   m_Layer: 5
   m_Name: ImagePanel
   m_TagString: Untagged
@@ -4492,6 +4506,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0.5764706, g: 0.57254905, b: 0.57254905, a: 1}
   m_EffectDistance: {x: 1, y: 1}
   m_UseGraphicAlpha: 1
+--- !u!114 &2035411480813719815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2834522078471348474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71536ba1624fc254a81b3c5c88c86308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2838607521065955732
 GameObject:
   m_ObjectHideFlags: 0
@@ -6235,7 +6261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0.7254902, g: 0.6627451, b: 0.5568628, a: 1}
   m_EffectDistance: {x: 3, y: 3}
-  m_UseGraphicAlpha: 1
+  m_UseGraphicAlpha: 0
 --- !u!114 &7652584208660892565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6248,6 +6274,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081549dc9ddeb9544a0c6ae1fb219bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  namePanel: {fileID: 9128021266954103430}
+  imagePanel: {fileID: 2834522078471348474}
+  manaPanel: {fileID: 5781166652405114416}
+  equipmentPanel: {fileID: 6538580618015768098}
+  perksPanel: {fileID: 1673916734805561823}
+  characteristicPanel: {fileID: 6014733212827944255}
+  spellPanel: {fileID: 4248470111571246115}
 --- !u!1 &3793470122564186929
 GameObject:
   m_ObjectHideFlags: 0
@@ -7333,6 +7366,7 @@ GameObject:
   - component: {fileID: 7405803185465600605}
   - component: {fileID: 7387323279258817313}
   - component: {fileID: 3328721871135988158}
+  - component: {fileID: 7182889978147231014}
   m_Layer: 5
   m_Name: SpellPanel
   m_TagString: Untagged
@@ -7430,6 +7464,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0.5764706, g: 0.57254905, b: 0.57254905, a: 1}
   m_EffectDistance: {x: 1, y: 1}
   m_UseGraphicAlpha: 1
+--- !u!114 &7182889978147231014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4248470111571246115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71536ba1624fc254a81b3c5c88c86308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4412754365157972365
 GameObject:
   m_ObjectHideFlags: 0
@@ -7812,6 +7858,7 @@ GameObject:
   - component: {fileID: 3549133079185009478}
   - component: {fileID: 3856082247226979644}
   - component: {fileID: 2536264389748962109}
+  - component: {fileID: 3653111931384654005}
   m_Layer: 5
   m_Name: HealthPanel
   m_TagString: Untagged
@@ -7891,6 +7938,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0.5754717, g: 0.5727572, b: 0.5727572, a: 1}
   m_EffectDistance: {x: 1, y: 1}
   m_UseGraphicAlpha: 1
+--- !u!114 &3653111931384654005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4470485887876504641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71536ba1624fc254a81b3c5c88c86308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4514520669567048883
 GameObject:
   m_ObjectHideFlags: 0
@@ -9911,6 +9970,7 @@ GameObject:
   - component: {fileID: 988108784126644564}
   - component: {fileID: 628378956089296805}
   - component: {fileID: 8123721901671708725}
+  - component: {fileID: 5072916216526697265}
   m_Layer: 5
   m_Name: ManaPanel
   m_TagString: Untagged
@@ -9998,6 +10058,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0.5764706, g: 0.57254905, b: 0.57254905, a: 1}
   m_EffectDistance: {x: 1, y: 1}
   m_UseGraphicAlpha: 1
+--- !u!114 &5072916216526697265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5781166652405114416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71536ba1624fc254a81b3c5c88c86308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5851328893850262728
 GameObject:
   m_ObjectHideFlags: 0
@@ -10459,6 +10531,7 @@ GameObject:
   - component: {fileID: 1423443838478781083}
   - component: {fileID: 2386637727084876962}
   - component: {fileID: 3575852964517139497}
+  - component: {fileID: 3137698244954115479}
   m_Layer: 5
   m_Name: "\u0421haracteristicPanel"
   m_TagString: Untagged
@@ -10545,6 +10618,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0.5764706, g: 0.57254905, b: 0.57254905, a: 1}
   m_EffectDistance: {x: 1, y: 1}
   m_UseGraphicAlpha: 1
+--- !u!114 &3137698244954115479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6014733212827944255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71536ba1624fc254a81b3c5c88c86308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6019296388581099894
 GameObject:
   m_ObjectHideFlags: 0
@@ -11290,6 +11375,7 @@ GameObject:
   - component: {fileID: 2879230224608434704}
   - component: {fileID: 8285925781691429850}
   - component: {fileID: 804077123447432845}
+  - component: {fileID: 27334937495034521}
   m_Layer: 5
   m_Name: EquipmentPanel
   m_TagString: Untagged
@@ -11381,6 +11467,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0.5764706, g: 0.57254905, b: 0.57254905, a: 1}
   m_EffectDistance: {x: 1, y: 1}
   m_UseGraphicAlpha: 1
+--- !u!114 &27334937495034521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6538580618015768098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71536ba1624fc254a81b3c5c88c86308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6558538982505987787
 GameObject:
   m_ObjectHideFlags: 0
@@ -15730,6 +15828,7 @@ GameObject:
   - component: {fileID: 370642068230902855}
   - component: {fileID: 6482765444073795861}
   - component: {fileID: 2590241433468747977}
+  - component: {fileID: 3615018551808869442}
   m_Layer: 5
   m_Name: NamePanel
   m_TagString: Untagged
@@ -15810,6 +15909,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0.5754717, g: 0.5727572, b: 0.5727572, a: 1}
   m_EffectDistance: {x: 1, y: 1}
   m_UseGraphicAlpha: 1
+--- !u!114 &3615018551808869442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9128021266954103430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71536ba1624fc254a81b3c5c88c86308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9215544809614037333
 GameObject:
   m_ObjectHideFlags: 0

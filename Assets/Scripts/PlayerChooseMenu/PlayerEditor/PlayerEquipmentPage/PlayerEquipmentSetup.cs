@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerEquipmentSetup : MonoBehaviour
+public class PlayerEquipmentSetup : MonoBehaviour, IPlayerSetup
 {  
     public Sprite defaultIcon;
 

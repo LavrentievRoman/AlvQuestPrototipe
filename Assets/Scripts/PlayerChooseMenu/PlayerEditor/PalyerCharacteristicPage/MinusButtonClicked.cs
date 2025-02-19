@@ -1,28 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine;
-using Unity.VisualScripting;
 
 public class MinusButtonClicked : MonoBehaviour
 {
     private GameObject characteristic;
 
-    private GameObject panel;
+    private PlayerCharacteristicSetup characteristicSetup;
 
     public void Start()
     {
-        characteristic = transform.parent.gameObject.transform.Find("CharacteristicValue").gameObject;
+        characteristic = transform.parent.Find("CharacteristicValue").gameObject;
+        characteristicSetup = GetComponentInParent<PlayerCharacteristicSetup>();
 
-        panel = GameObject.Find("PlayerMainСharacteristicPanel");
-
+        // Добавляем событее при нажатии на кнопку
         Button button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(delegate { ReduceCharacteristicValue(); });
     }
 
     public void Update()
     {
+        // Изменяем интерактивность кнопки, если значение навыка достигло минимального предела
         if (int.Parse(characteristic.GetComponentInChildren<Text>().text) == 1)
         {
             gameObject.GetComponent<Button>().interactable = false;
@@ -33,11 +30,13 @@ public class MinusButtonClicked : MonoBehaviour
         }      
     }
 
+    // Изменение значения навыка
     public void ReduceCharacteristicValue()
     {
-        int newValue = int.Parse(characteristic.GetComponentInChildren<Text>().text) - 1;
-        characteristic.GetComponentInChildren<Text>().text = newValue.ToString();
+        // Уменьшаем значение навыка на 1
+        characteristic.GetComponentInChildren<Text>().text = (int.Parse(characteristic.GetComponentInChildren<Text>().text) - 1).ToString();
 
-        panel.GetComponentInChildren<PlayerCharacteristicSetup>().IncreaseCharacteristicPoint();
+        // Прибавляем 1 к оставшимся очкам
+        characteristicSetup.AvailableCP++;
     }
 }

@@ -1,80 +1,72 @@
 using AlvQuest_Editor;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerCharacteristicSetup : MonoBehaviour
+public class PlayerCharacteristicSetup : MonoBehaviour, IPlayerSetup
 {
-    public int defaultStrengthValue = 5;
-    public int defaultDexterityValue = 5;
-    public int defaultEnduranceValue = 5;
-    public int defaultFireMasteryValue = 5;
-    public int defaultEarthMasteryValue = 5;
-    public int defaultAirMasteryValue = 5;
-    public int defaultWaterMasteryValue = 5;
+    [SerializeField] private int defaultStrengthValue = 5;
+    [SerializeField] private int defaultDexterityValue = 5;
+    [SerializeField] private int defaultEnduranceValue = 5;
+    [SerializeField] private int defaultFireMasteryValue = 5;
+    [SerializeField] private int defaultEarthMasteryValue = 5;
+    [SerializeField] private int defaultAirMasteryValue = 5;
+    [SerializeField] private int defaultWaterMasteryValue = 5;
 
-    public GameObject cpValue;
-    public GameObject strengthValue;
-    public GameObject dexterityValue;
-    public GameObject enduranceValue;
-    public GameObject fireMasteryValue;
-    public GameObject earthMasteryValue;
-    public GameObject airMasteryValue;
-    public GameObject waterMasteryValue;
+    [SerializeField] private GameObject cpValue;
+    [SerializeField] private GameObject strengthValue;
+    [SerializeField] private GameObject dexterityValue;
+    [SerializeField] private GameObject enduranceValue;
+    [SerializeField] private GameObject fireMasteryValue;
+    [SerializeField] private GameObject earthMasteryValue;
+    [SerializeField] private GameObject airMasteryValue;
+    [SerializeField] private GameObject waterMasteryValue;
 
-    private int availableCP;
+    public int AvailableCP
+    {
+        get
+        {
+            return editor.CustomPlayer.CharPoints;
+        }
+        set
+        {
+            // Обновляем значение доступных очков навыков у персонажа и на панели
+            editor.CustomPlayer.CharPoints = value;
+            cpValue.GetComponentInChildren<Text>().text = editor.CustomPlayer.CharPoints.ToString();
+        }
+    }
+
+    private PlayerEditor editor; 
 
     private Dictionary<ECharacteristic, int> characteristics;
 
-    // Start is called before the first frame update
     public void Awake()
     {
-        characteristics = new Dictionary<ECharacteristic, int>();
+        editor = GetComponentInParent<PlayerEditor>();
 
-        characteristics.Add(ECharacteristic.Strength, defaultStrengthValue);
-        characteristics.Add(ECharacteristic.Dexterity, defaultDexterityValue);
-        characteristics.Add(ECharacteristic.Endurance, defaultEnduranceValue);
-        characteristics.Add(ECharacteristic.Fire, defaultFireMasteryValue);
-        characteristics.Add(ECharacteristic.Water, defaultWaterMasteryValue);
-        characteristics.Add(ECharacteristic.Air, defaultAirMasteryValue);
-        characteristics.Add(ECharacteristic.Earth, defaultEarthMasteryValue);
+        characteristics = new Dictionary<ECharacteristic, int>
+        {
+            { ECharacteristic.Strength, defaultStrengthValue },
+            { ECharacteristic.Dexterity, defaultDexterityValue },
+            { ECharacteristic.Endurance, defaultEnduranceValue },
+            { ECharacteristic.Fire, defaultFireMasteryValue },
+            { ECharacteristic.Water, defaultWaterMasteryValue },
+            { ECharacteristic.Air, defaultAirMasteryValue },
+            { ECharacteristic.Earth, defaultEarthMasteryValue }
+        };
 
         SetDefaults();
     }
 
-    public void SetCharacteristicPointValue(int CP)
+    void OnEnable()
     {
-        availableCP = CP;
-
-        cpValue.GetComponentInChildren<Text>().text = availableCP.ToString();
+        AvailableCP = editor.CustomPlayer.CharPoints;
     }
 
-    public void IncreaseCharacteristicPoint()
+    // Сохранение параметров
+    public void SaveInformation(CharacterDTO character)
     {
-        availableCP++;
-
-        UpdateInformation();
-    }
-
-    public void ReduceCharacteristicPoint()
-    {
-        availableCP--;
-
-        UpdateInformation();
-    }   
-
-    public int GetCharacteristicPointValue()
-    {
-        return availableCP;
-    }
-
-    public void UpdateInformation()
-    {
-        cpValue.GetComponentInChildren<Text>().text = availableCP.ToString();
-
+        // Сохраняем значения параметров
         characteristics[ECharacteristic.Strength] = int.Parse(strengthValue.GetComponentInChildren<Text>().text);
         characteristics[ECharacteristic.Dexterity] = int.Parse(dexterityValue.GetComponentInChildren<Text>().text);
         characteristics[ECharacteristic.Endurance] = int.Parse(enduranceValue.GetComponentInChildren<Text>().text);
@@ -82,14 +74,13 @@ public class PlayerCharacteristicSetup : MonoBehaviour
         characteristics[ECharacteristic.Water] = int.Parse(waterMasteryValue.GetComponentInChildren<Text>().text);
         characteristics[ECharacteristic.Air] = int.Parse(airMasteryValue.GetComponentInChildren<Text>().text);
         characteristics[ECharacteristic.Earth] = int.Parse(earthMasteryValue.GetComponentInChildren<Text>().text);
-    }
 
-    public void SaveInformation(CharacterDTO character)
-    {
+        // Передаём персонажу эти значения, а так же количество оставшихся очков навыков
         character.Characteristics = new Dictionary<ECharacteristic, int>(characteristics);
-        character.CharPoints = availableCP;
+        character.CharPoints = AvailableCP;
     }
 
+    // Установка значений по умолчанию
     public void SetDefaults()
     {
         strengthValue.GetComponentInChildren<Text>().text = defaultStrengthValue.ToString();
@@ -99,8 +90,5 @@ public class PlayerCharacteristicSetup : MonoBehaviour
         waterMasteryValue.GetComponentInChildren<Text>().text = defaultWaterMasteryValue.ToString();
         airMasteryValue.GetComponentInChildren<Text>().text = defaultAirMasteryValue.ToString();
         earthMasteryValue.GetComponentInChildren<Text>().text = defaultEarthMasteryValue.ToString();
-
-        if (characteristics == null) return;
-        UpdateInformation();
     }
 }

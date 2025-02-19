@@ -1,20 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CreatePlayerButtonClicked : MonoBehaviour
 {
-    public GameObject playerEditor;
+    [SerializeField]
+    private GameObject playerEditor;
 
-    // Start is called before the first frame update
     void Start()
     {
         Button button = gameObject.GetComponent<Button>();
+        
+        // Привязка события к кнопке 
         button.onClick.AddListener(delegate { OpenPlayerEditor(); });
     }
 
-    // Update is called once per frame
+    // Показ редактора персонажа
     private void OpenPlayerEditor()
     {
         playerEditor.SetActive(true);

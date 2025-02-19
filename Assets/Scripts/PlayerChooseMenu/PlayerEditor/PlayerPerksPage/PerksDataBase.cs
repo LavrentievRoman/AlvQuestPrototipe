@@ -81,7 +81,7 @@ public class PerksDataBase : MonoBehaviour
 
     private bool CheckPlayer—haracteristic(PerkDTO perk)
     {
-        Dictionary<ECharacteristic, int> characteristic = GameObject.Find("PlayerEditor").GetComponent<PlayerEditor>().GetPlayerCharacteristics();
+        Dictionary<ECharacteristic, int> characteristic = GameObject.Find("PlayerEditor").GetComponent<PlayerEditor>().CustomPlayer.Characteristics;
 
         if (perk.RequirementsForUse[ECharacteristic.Strength] > characteristic[ECharacteristic.Strength])
         {
